@@ -2,15 +2,7 @@ using UnityEngine;
 
 public class PaddleSizeDecreasePowerUp : MonoBehaviour, IPowerUp
 {
-
     public float sizeDecreaseFactor = 0.5f;
-
-
-    void Start()
-    {
-
-    }
-
 
     public void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
     {
