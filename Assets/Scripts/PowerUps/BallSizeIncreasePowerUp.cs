@@ -19,18 +19,18 @@ public class BallSizeIncreasePowerUp : MonoBehaviour, IPowerUp
             Vector3 currentScale = ball.transform.localScale;
             ball.transform.localScale = currentScale * sizeIncreaseFactor;
 
-            // Collider boyutunu güncelleme
+
             SphereCollider collider = ball.GetComponent<SphereCollider>();
             if (collider != null)
             {
                 collider.radius *= sizeIncreaseFactor;
             }
 
-            // Rigidbody kütlesini güncelleme (isteðe baðlý)
+
             Rigidbody rb = ball.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.mass *= Mathf.Pow(sizeIncreaseFactor, 3); // Hacme göre kütle artýþý
+                rb.mass *= Mathf.Pow(sizeIncreaseFactor, 3);
 
 
             }

@@ -8,4 +8,7 @@ public class LifeIncreasePowerUp : MonoBehaviour, IPowerUp
         paddlePowerUpController.CurHealthUI.UpdateLivesUI(live);
 
     }
+
+
+
 }

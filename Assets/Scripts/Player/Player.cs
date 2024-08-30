@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public void LoseLive()
     {
         currentLives--;
-        Debug.Log(currentLives);
+
         ParameterManager.Instance.healthUI.UpdateLivesUI(currentLives);
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class PaddlePowerUpController : MonoBehaviour
 {
 
@@ -10,9 +11,9 @@ public class PaddlePowerUpController : MonoBehaviour
     public PlayerHealthUI CurHealthUI => ParameterManager.Instance.healthUI;
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        GameObject collidedObject = collision.gameObject;
+        GameObject collidedObject = other.gameObject;
 
         if (collidedObject != null)
         {
@@ -20,8 +21,10 @@ public class PaddlePowerUpController : MonoBehaviour
             IPowerUp powerUpComponent = collidedObject.GetComponent<IPowerUp>();
 
             CheckPowerUp(powerUpComponent);
-        }
+            Destroy(collidedObject);
 
+
+        }
     }
 
     public void CheckPowerUp(IPowerUp PowerUpPrefab)
@@ -29,10 +32,6 @@ public class PaddlePowerUpController : MonoBehaviour
         if (PowerUpPrefab != null)
         {
             PowerUpPrefab.ApplyPowerUp(this);
-        }
-        else
-        {
-            Debug.LogWarning("Çarpýþan obje bir IPowerUp bileþeni içermiyor.");
         }
 
     }
