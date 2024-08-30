@@ -29,25 +29,37 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        GameObject collidedObject = collision.gameObject;
 
-        if (collision.gameObject.CompareTag("Line"))
+        if (collidedObject.CompareTag("Line"))
         {
             ParameterManager.Instance.player.LoseLive();
             ResetBallPosition();
         }
 
-        BoxController boxController = collision.gameObject.GetComponent<BoxController>();
+        BoxController boxController = collidedObject.GetComponent<BoxController>();
+
         if (boxController != null)
         {
-
             boxController.TakeDamage();
         }
+
 
         // Çarpýþma yüzeyinin normalini al
         Vector3 normal = collision.contacts[0].normal;
 
         // Yeni yön = yansýma (refleksiyon)
         direction = Vector3.Reflect(direction, normal);
+
+        // TODO: Limit Direction to avoid going up or down
+
+        direction.y = 0;
+
+        direction = direction.normalized;
+
+
+
+
     }
 
 
