@@ -5,12 +5,6 @@ public class PaddleSizeIncreasePowerUp : MonoBehaviour, IPowerUp
 
     public float sizeDecreaseFactor = 2.5f;
 
-    void Start()
-    {
-
-    }
-
-
     public void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
     {
         GameObject paddle = paddlePowerUpController.paddle;

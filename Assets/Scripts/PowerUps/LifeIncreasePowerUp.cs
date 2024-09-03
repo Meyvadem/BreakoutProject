@@ -10,5 +10,16 @@ public class LifeIncreasePowerUp : MonoBehaviour, IPowerUp
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject collidedObject = other.gameObject;
+
+        if (collidedObject.CompareTag("Line"))
+        {
+
+            Destroy(gameObject);
+        }
+    }
+
 
 }

@@ -12,6 +12,7 @@ public class BallController : MonoBehaviour
 
     void Start()
     {
+
         // Rastgele bir baþlangýç yönü belirleyin
         float randomX = Random.Range(0, 1f);
         float randomZ = Random.Range(0, 1f);
@@ -50,15 +51,6 @@ public class BallController : MonoBehaviour
 
         // Yeni yön = yansýma (refleksiyon)
         direction = Vector3.Reflect(direction, normal);
-
-        // TODO: Limit Direction to avoid going up or down
-
-        direction.y = 0;
-
-        direction = direction.normalized;
-
-
-
 
     }
 

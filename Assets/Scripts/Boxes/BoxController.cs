@@ -44,7 +44,6 @@ public class BoxController : MonoBehaviour
         }
         else if (health <= 0)
         {
-            // Üçüncü darbe aldý, tuðla yok edilsin
             Destroy(gameObject);
             currentNumberOfBox--;
             ParameterManager.Instance.boxNumberUI.UpdateNumberOfBoxUI(currentNumberOfBox);

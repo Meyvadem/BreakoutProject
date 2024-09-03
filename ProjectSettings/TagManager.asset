@@ -6,11 +6,7 @@ TagManager:
   tags:
   - Box1
   - Line
-  - LifePowUp
-  - PaddleDec
-  - PaddleInc
-  - BallInc
-  - BallDec
+  - Paddle
   layers:
   - Default
   - TransparentFX
