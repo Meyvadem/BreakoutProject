@@ -13,10 +13,7 @@ public class BallController : MonoBehaviour
     void Start()
     {
 
-        // Rastgele bir baþlangýç yönü belirleyin
-        float randomX = Random.Range(0, 1f);
-        float randomZ = Random.Range(0, 1f);
-        direction = new Vector3(randomX, 0, randomZ).normalized;
+        SetRandomDirection();
 
     }
 
@@ -24,7 +21,7 @@ public class BallController : MonoBehaviour
     void Update()
     {
 
-        transform.Translate(direction * speed * Time.deltaTime);
+        MoveBall();
 
     }
 
@@ -34,32 +31,48 @@ public class BallController : MonoBehaviour
 
         if (collidedObject.CompareTag("Line"))
         {
-            ParameterManager.Instance.player.LoseLive();
-            ResetBallPosition();
+            HandleLineCollision();    // Line ile çarpýþma durumu
         }
-
-        BoxController boxController = collidedObject.GetComponent<BoxController>();
-
-        if (boxController != null)
+        else
         {
-            boxController.TakeDamage();
+            HandleBoxCollision(collidedObject);    // Kutularla çarpýþma durumu
         }
 
 
-        // Çarpýþma yüzeyinin normalini al
-        Vector3 normal = collision.contacts[0].normal;
-
-        // Yeni yön = yansýma (refleksiyon)
-        direction = Vector3.Reflect(direction, normal);
+        ReflectBallDirection(collision); // Topun yönünü çarpýþma normaline göre yansýtma
 
     }
 
 
+    private void HandleLineCollision()
+    {
+        ParameterManager.Instance.player.LoseLive();
+        ResetBallPosition();
+    }
+
+    private void HandleBoxCollision(GameObject collidedObject)
+    {
+        BoxController boxController = collidedObject.GetComponent<BoxController>();
+        if (boxController != null)
+        {
+            boxController.TakeDamage();
+        }
+    }
+
+
+    private void ReflectBallDirection(Collision collision)
+    {
+        Vector3 normal = collision.contacts[0].normal;   // Çarpýþma yüzeyinin normalini al
+        direction = Vector3.Reflect(direction, normal);  // Yeni yön = yansýma (refleksiyon)
+
+        // Y yönünü sýfýrlama
+        direction.y = 0;
+        direction = direction.normalized;
+    }
+
 
     public void ResetBallPosition()
     {
-        float randomX1 = Random.Range(0, -0.7f);
-        float randomZ1 = Random.Range(0, -0.7f);
 
         // Paddle pozisyonunu sýfýrlama
         paddleTransform.position = new Vector3(0f, paddleTransform.position.y, paddleTransform.position.z);
@@ -68,11 +81,26 @@ public class BallController : MonoBehaviour
         transform.position = paddleTransform.position + new Vector3(0, 0, 1);
 
         // Topun hareket yönünü ayarlama
-        direction = new Vector3(randomX1, 0, randomZ1).normalized;
+        SetRandomDirection();
 
         // Topu hareket ettirme
-        transform.Translate(direction * speed * Time.deltaTime);
+        MoveBall();
 
     }
+
+
+    private void SetRandomDirection()
+    {
+        float randomX = Random.Range(0, -0.7f);
+        float randomZ = Random.Range(0, -0.7f);
+        direction = new Vector3(randomX, 0, randomZ).normalized;
+    }
+
+
+    private void MoveBall()
+    {
+        transform.Translate(direction * speed * Time.deltaTime);
+    }
+
 
 }
