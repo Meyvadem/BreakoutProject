@@ -4,6 +4,7 @@ public class BallController : MonoBehaviour
 {
 
     public Transform paddleTransform;
+    private Transform initialBallTransform;
 
     public float speed = 10f; // Topun hýzý
     private Vector3 direction; // Topun hareket yönü
@@ -12,9 +13,9 @@ public class BallController : MonoBehaviour
 
     void Start()
     {
+        initialBallTransform = transform;
 
         SetRandomDirection();
-
     }
 
 
@@ -36,10 +37,9 @@ public class BallController : MonoBehaviour
         else
         {
             HandleBoxCollision(collidedObject);    // Kutularla çarpýþma durumu
+
+            ReflectBallDirection(collision); // Topun yönünü çarpýþma normaline göre yansýtma
         }
-
-
-        ReflectBallDirection(collision); // Topun yönünü çarpýþma normaline göre yansýtma
 
     }
 
@@ -78,21 +78,18 @@ public class BallController : MonoBehaviour
         paddleTransform.position = new Vector3(0f, paddleTransform.position.y, paddleTransform.position.z);
 
         // Topu paddle'ýn üstüne yerleþtirme
-        transform.position = paddleTransform.position + new Vector3(0, 0, 1);
+        transform.position = new Vector3(0f, initialBallTransform.position.y, initialBallTransform.position.z + 2f);
 
         // Topun hareket yönünü ayarlama
         SetRandomDirection();
-
-        // Topu hareket ettirme
-        MoveBall();
 
     }
 
 
     private void SetRandomDirection()
     {
-        float randomX = Random.Range(0, -0.7f);
-        float randomZ = Random.Range(0, -0.7f);
+        float randomX = Random.Range(-0.6f, 0.6f);
+        float randomZ = Random.Range(0.6f, 1f);
         direction = new Vector3(randomX, 0, randomZ).normalized;
     }
 
