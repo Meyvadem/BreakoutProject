@@ -11,4 +11,12 @@ public class PaddleSizeDecreasePowerUp : MonoBehaviour, IPowerUp
         paddle.transform.localScale = new Vector3(currentScale.x * sizeDecreaseFactor, currentScale.y, currentScale.z);
 
     }
+
+    public void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
+    {
+        GameObject paddle = paddlePowerUpController.paddle;
+        Vector3 currentScale = paddle.transform.localScale;
+        paddle.transform.localScale = new Vector3(currentScale.x / sizeDecreaseFactor, currentScale.y, currentScale.z);
+
+    }
 }

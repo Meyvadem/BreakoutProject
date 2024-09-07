@@ -3,12 +3,8 @@ using UnityEngine;
 public class BallSizeDecreasePowerUp : MonoBehaviour, IPowerUp
 {
 
-    public float sizeDecreaseFactor = 0.5f; // Boyut küçültme katsayýsý
+    public float sizeDecreaseFactor = 0.5f;
 
-    void Start()
-    {
-
-    }
 
     public void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
     {
@@ -19,6 +15,7 @@ public class BallSizeDecreasePowerUp : MonoBehaviour, IPowerUp
             Vector3 currentScale = ball.transform.localScale;
             ball.transform.localScale = currentScale * sizeDecreaseFactor;
 
+
             // Collider boyutunu güncelleme
             SphereCollider collider = ball.GetComponent<SphereCollider>();
             if (collider != null)
@@ -26,14 +23,47 @@ public class BallSizeDecreasePowerUp : MonoBehaviour, IPowerUp
                 collider.radius *= sizeDecreaseFactor;
             }
 
-            // Rigidbody kütlesini güncelleme (isteðe baðlý)
+
+            // Rigidbody kütlesini güncelleme 
             Rigidbody rb = ball.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.mass *= Mathf.Pow(sizeDecreaseFactor, 3); // Hacme göre kütle azalmasý
+                rb.mass *= Mathf.Pow(sizeDecreaseFactor, 3);
             }
 
             Debug.Log("Ball size decreased!");
+        }
+        else
+        {
+            Debug.LogWarning("Ball reference is not set.");
+        }
+    }
+
+    public void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
+    {
+        GameObject ball = paddlePowerUpController.ball;
+        if (ball != null)
+        {
+            Vector3 currentScale = ball.transform.localScale;
+            ball.transform.localScale = currentScale / sizeDecreaseFactor;
+
+
+            // Collider'ýn yarýçapýný orijinal haline döndür
+            SphereCollider collider = ball.GetComponent<SphereCollider>();
+            if (collider != null)
+            {
+                collider.radius /= sizeDecreaseFactor;
+            }
+
+
+            // Rigidbody'nin kütlesini orijinal haline döndür
+            Rigidbody rb = ball.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.mass /= Mathf.Pow(sizeDecreaseFactor, 3);
+            }
+
+            Debug.Log("Ball size returned to normal!");
         }
         else
         {

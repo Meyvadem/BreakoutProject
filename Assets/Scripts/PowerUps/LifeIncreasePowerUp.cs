@@ -9,16 +9,9 @@ public class LifeIncreasePowerUp : MonoBehaviour, IPowerUp
 
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    public void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
     {
-        GameObject collidedObject = other.gameObject;
 
-        if (collidedObject.CompareTag("Line"))
-        {
-
-            Destroy(gameObject);
-        }
     }
 
 
