@@ -937,7 +937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6081431792582702633, guid: 993e9893704af5e4395c203de2f2a590, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6189164360412712201, guid: 993e9893704af5e4395c203de2f2a590, type: 3}
       propertyPath: boxNumberUI
@@ -2963,9 +2963,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f681489906cb0249b2a37f50e3d6c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activePowerUp: {fileID: 0}
   ball: {fileID: 912069394}
   paddle: {fileID: 959850127}
-  powerUpBar: {fileID: 555868588}
 --- !u!54 &959850138
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6453,7 +6453,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthUI: {fileID: 984605040}
   boxNumberUI: {fileID: 799645084}
-  paddleController: {fileID: 959850136}
   player: {fileID: 959850135}
 --- !u!1 &2094649562
 GameObject:
@@ -6584,7 +6583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6081431792582702633, guid: 993e9893704af5e4395c203de2f2a590, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6227263782145658226, guid: 993e9893704af5e4395c203de2f2a590, type: 3}
       propertyPath: m_LocalScale.x

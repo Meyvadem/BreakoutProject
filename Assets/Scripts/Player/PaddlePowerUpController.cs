@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PaddlePowerUpController : MonoBehaviour
 {
+    public PowerUpBase activePowerUp;
+    private Coroutine activeCoroutine;
 
     public GameObject ball;
     public GameObject paddle;
@@ -17,22 +19,44 @@ public class PaddlePowerUpController : MonoBehaviour
 
         if (collidedObject != null)
         {
-
-            IPowerUp powerUpComponent = collidedObject.GetComponent<IPowerUp>();
+            PowerUpBase powerUpComponent = collidedObject.GetComponent<PowerUpBase>();
 
             CheckPowerUp(powerUpComponent);
-            Destroy(collidedObject);
-
-
+            collidedObject.SetActive(false);
         }
     }
 
-    public void CheckPowerUp(IPowerUp PowerUpPrefab)
-    {
-        if (PowerUpPrefab != null)
-        {
-            PowerUpPrefab.ApplyPowerUp(this);
-        }
 
+    /*
+        New property: If a new power-up hits paddle object while another power-up is active, 
+        stop the old one and activate the new one.
+    */
+
+    public void CheckPowerUp(PowerUpBase powerUpComponent)
+    {
+        if (powerUpComponent != null)
+        {
+            // Mevcut bir power-up aktifse, önce onu devre dýþý býrak
+            if (activePowerUp != null)
+            {
+
+                // Mevcut Coroutine aktifse, onu devre dýþý býrak
+                if (activeCoroutine != null)
+                {
+                    StopCoroutine(activeCoroutine);
+                }
+
+                activePowerUp.DeactivatePowerUp(this);
+            }
+
+
+            // Yeni power-up'ý etkinleþtir ve aktif power-up olarak kaydet
+            activePowerUp = powerUpComponent;
+
+            activePowerUp.ApplyPowerUp(this);
+
+            activeCoroutine = StartCoroutine(activePowerUp.DeactivateAfterDuration(this));
+        }
     }
 }
+
