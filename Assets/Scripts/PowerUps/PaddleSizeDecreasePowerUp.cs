@@ -1,22 +1,24 @@
 using UnityEngine;
 
-public class PaddleSizeDecreasePowerUp : MonoBehaviour, IPowerUp
+public class PaddleSizeDecreasePowerUp : PowerUpBase
 {
     public float sizeDecreaseFactor = 0.5f;
 
-    public void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
+    public override void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
     {
         GameObject paddle = paddlePowerUpController.paddle;
         Vector3 currentScale = paddle.transform.localScale;
         paddle.transform.localScale = new Vector3(currentScale.x * sizeDecreaseFactor, currentScale.y, currentScale.z);
 
+
     }
 
-    public void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
+    public override void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
     {
         GameObject paddle = paddlePowerUpController.paddle;
         Vector3 currentScale = paddle.transform.localScale;
         paddle.transform.localScale = new Vector3(currentScale.x / sizeDecreaseFactor, currentScale.y, currentScale.z);
 
+        Destroy(gameObject);
     }
 }

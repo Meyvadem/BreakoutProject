@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class BallSizeIncreasePowerUp : MonoBehaviour, IPowerUp
+public class BallSizeIncreasePowerUp : PowerUpBase
 {
 
     public float sizeIncreaseFactor = 1.5f;
 
 
-    public void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
+    public override void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
     {
         GameObject ball = paddlePowerUpController.ball;
         if (ball != null)
@@ -36,9 +36,11 @@ public class BallSizeIncreasePowerUp : MonoBehaviour, IPowerUp
         {
             Debug.LogWarning("Ball reference is not set.");
         }
+
+
     }
 
-    public void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
+    public override void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
     {
         GameObject ball = paddlePowerUpController.ball;
         if (ball != null)
@@ -68,5 +70,7 @@ public class BallSizeIncreasePowerUp : MonoBehaviour, IPowerUp
         {
             Debug.LogWarning("Ball reference is not set.");
         }
+
+        Destroy(gameObject);
     }
 }

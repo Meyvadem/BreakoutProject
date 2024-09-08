@@ -1,16 +1,13 @@
-using UnityEngine;
 
-public class LifeIncreasePowerUp : MonoBehaviour, IPowerUp
+
+public class LifeIncreasePowerUp : PowerUpBase
 {
-    public void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
+    public override void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
     {
         int live = ++paddlePowerUpController.CurPlayer.currentLives;
         paddlePowerUpController.CurHealthUI.UpdateLivesUI(live);
 
-    }
-
-    public void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
-    {
+        Destroy(gameObject);
 
     }
 
