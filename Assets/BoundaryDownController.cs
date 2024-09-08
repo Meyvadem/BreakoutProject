@@ -9,8 +9,13 @@ public class BoundaryDownController : MonoBehaviour
 
         if (collidedObject != null)
         {
-            IPowerUp powerUpComponent = collidedObject.GetComponent<IPowerUp>();
-            Destroy(collidedObject);
+            PowerUpBase powerUpComponent = collidedObject.GetComponent<PowerUpBase>();
+
+            if (powerUpComponent != null)
+            {
+                Destroy(collidedObject);
+            }
+
         }
     }
 
