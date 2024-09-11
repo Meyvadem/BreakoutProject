@@ -4,18 +4,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
-    public Text gameOverText;
-    public Button restartButton;
-
-
-    void Start()
-    {
-        gameOverText.gameObject.SetActive(false);
-        restartButton.gameObject.SetActive(false);
-
-
-    }
+    public Image GameOverScreen;
+    public Image WinGameScreen;
 
     void Update()
     {
@@ -23,14 +13,25 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
+
+        if (ParameterManager.Instance.boxController.GetBoxNumber() <= 0)
+        {
+            WinGame();
+        }
+
+
     }
 
+    public void WinGame()
+    {
+        Time.timeScale = 0f;
+        WinGameScreen.gameObject.SetActive(true);
+    }
 
     public void GameOver()
     {
         Time.timeScale = 0f;
-        gameOverText.gameObject.SetActive(true);
-        restartButton.gameObject.SetActive(true);
+        GameOverScreen.gameObject.SetActive(true);
     }
 
     public void RestartGame()

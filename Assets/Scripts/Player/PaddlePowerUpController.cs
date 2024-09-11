@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PaddlePowerUpController : MonoBehaviour
 {
     public PowerUpBase activePowerUp;
     private Coroutine activeCoroutine;
+    public Image powerUpBarColor;
+    public Image powerUpBarBack;
+    public Image powerUpBarFrame;
 
     public GameObject ball;
     public GameObject paddle;
@@ -60,3 +64,33 @@ public class PaddlePowerUpController : MonoBehaviour
     }
 }
 
+
+/*
+ 
+ //   New property: If a new power-up hits paddle object while another power-up is active, 
+ //   destroy the new power-up. A new power-up can only be activated if no other power-up is active.
+
+
+public void CheckPowerUp(PowerUpBase powerUpComponent)
+    {
+        if (powerUpComponent != null)
+        {
+            // Eðer zaten aktif bir power-up varsa, yeni power-up'ý yok et ve hiçbir þey yapma
+            if (activePowerUp != null)
+            {
+                return; // Yeni power-up'ý aktifleþtirmeden methodu sonlandýr
+            }
+
+            // Eðer aktif bir power-up yoksa, gelen power-up'ý aktif hale getir
+            activePowerUp = powerUpComponent;
+
+            activePowerUp.ApplyPowerUp(this);
+
+            activeCoroutine = StartCoroutine(activePowerUp.DeactivateAfterDuration(this));
+
+            powerUpComponent.gameObject.SetActive(false);
+        }
+    }
+}
+
+*/
