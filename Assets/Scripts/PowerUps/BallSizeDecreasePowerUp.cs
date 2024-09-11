@@ -38,6 +38,7 @@ public class BallSizeDecreasePowerUp : PowerUpBase
             Debug.LogWarning("Ball reference is not set.");
         }
 
+        ActivatePowerUpBar(paddlePowerUpController, Color.green);
 
     }
 
@@ -71,6 +72,8 @@ public class BallSizeDecreasePowerUp : PowerUpBase
         {
             Debug.LogWarning("Ball reference is not set.");
         }
+
+        DeactivatePowerUpBar(paddlePowerUpController);
 
         Destroy(gameObject);
     }

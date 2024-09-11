@@ -7,6 +7,7 @@ public class ParameterManager : MonoBehaviour
 
     public PlayerHealthUI healthUI;
     public BoxNumberUI boxNumberUI;
+    public BoxController boxController;
     public Player player;
 
 
@@ -24,14 +25,5 @@ public class ParameterManager : MonoBehaviour
         }
 
     }
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
