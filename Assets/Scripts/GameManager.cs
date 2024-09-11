@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
             GameOver();
         }
 
-        if (ParameterManager.Instance.boxController.GetBoxNumber() <= 0)
+        if (BoxController.GetBoxNumber() <= 0)
         {
             WinGame();
         }

@@ -98,7 +98,7 @@ public class BoxController : MonoBehaviour
     }
 
 
-    public int GetBoxNumber()
+    public static int GetBoxNumber()
     {
         return currentNumberOfBox;
     }
