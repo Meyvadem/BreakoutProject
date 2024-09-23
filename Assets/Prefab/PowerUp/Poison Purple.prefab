@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeDecreaseFactor: 0.5
+  poisonTimerPrefab: {fileID: 5117869505331090347, guid: d0558128e83bcc24a8a27f329eba7f3e, type: 3}
 --- !u!65 &7450222025232797378
 BoxCollider:
   m_ObjectHideFlags: 0

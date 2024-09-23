@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeDecreaseFactor: 0.5
+  skullTimerPrefab: {fileID: 6165861427960606137, guid: d2b2a94a82a4240458731da9167d856e, type: 3}
 --- !u!65 &6788598669477863075
 BoxCollider:
   m_ObjectHideFlags: 0

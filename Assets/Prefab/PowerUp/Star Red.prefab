@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeIncreaseFactor: 2
+  starTimerPrefab: {fileID: 4772715555728185015, guid: f1d478d274ffce34cae44d0c5a53a829, type: 3}
 --- !u!65 &8855571923514961840
 BoxCollider:
   m_ObjectHideFlags: 0

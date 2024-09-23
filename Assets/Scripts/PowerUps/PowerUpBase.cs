@@ -1,61 +1,94 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class PowerUpBase : MonoBehaviour
 {
-    protected float powerUpDuration = 5f;
+    private float powerUpDuration = 5f;
+    private Coroutine activeCoroutine;
+    private PowerUpTimer powerUpTimer;
+    private GameObject instantiatedTimer;
+
 
     public abstract void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController);
 
 
-    public virtual void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
+    public void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
+    {
+        OnDeactivatePowerUp(paddlePowerUpController);
+        paddlePowerUpController.TimerUI.DeactivatePowerUpBar(this);
+
+        paddlePowerUpController.activePowerUps.Remove(this);
+        activeCoroutine = null;
+
+        Destroy(gameObject);
+    }
+
+
+    protected virtual void OnDeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
     {
 
     }
+
 
     public IEnumerator DeactivateAfterDuration(PaddlePowerUpController paddlePowerUpController)
     {
-        float elapsedTime = 0f;
+        Image transparentImage = instantiatedTimer.transform.Find("TransparentImage").GetComponent<Image>();
 
-        while (elapsedTime < powerUpDuration)
+        if (transparentImage != null)
         {
-            elapsedTime += Time.deltaTime;
-            float remainingTime = powerUpDuration - elapsedTime;
+            float elapsedTime = 0f;
+            float duration = powerUpDuration;
 
-            if (paddlePowerUpController.powerUpBarColor != null)
+            transparentImage.fillAmount = 0f;
+
+            while (elapsedTime < duration)
             {
-                paddlePowerUpController.powerUpBarColor.fillAmount = remainingTime / powerUpDuration;
+                elapsedTime += Time.deltaTime;
+                float fillAmount = elapsedTime / duration;
+
+                transparentImage.fillAmount = fillAmount;
+
+                yield return null;
             }
 
-            yield return null;  // Bir sonraki kareye kadar bekle
+            DeactivatePowerUp(paddlePowerUpController);
         }
-
-        DeactivatePowerUp(paddlePowerUpController);
     }
 
-    public void ActivatePowerUpBar(PaddlePowerUpController paddlePowerUpController, Color barColor)
+
+    public void ResetTimer(PaddlePowerUpController paddlePowerUpController)
     {
-        if (paddlePowerUpController.powerUpBarColor != null)
+        if (activeCoroutine != null)
         {
-            paddlePowerUpController.powerUpBarColor.color = barColor;
-
-            paddlePowerUpController.powerUpBarColor.gameObject.SetActive(true);
-            paddlePowerUpController.powerUpBarBack.gameObject.SetActive(true);
-            paddlePowerUpController.powerUpBarFrame.gameObject.SetActive(true);
-
-            paddlePowerUpController.powerUpBarColor.fillAmount = 1f;
+            paddlePowerUpController.StopCoroutine(activeCoroutine);
         }
+
+
+        activeCoroutine = paddlePowerUpController.StartCoroutine(DeactivateAfterDuration(paddlePowerUpController));
+
     }
 
-    public void DeactivatePowerUpBar(PaddlePowerUpController paddlePowerUpController)
+
+    public float PowerUpDuration
     {
-        if (paddlePowerUpController.powerUpBarColor != null)
-        {
-            paddlePowerUpController.powerUpBarColor.gameObject.SetActive(false);
-            paddlePowerUpController.powerUpBarBack.gameObject.SetActive(false);
-            paddlePowerUpController.powerUpBarFrame.gameObject.SetActive(false);
-
-        }
+        get { return powerUpDuration; }
+        set { powerUpDuration = value; }
     }
+
+
+    public GameObject InstantiatedTimer
+    {
+        get { return instantiatedTimer; }
+        set { instantiatedTimer = value; }
+    }
+
+
+    public PowerUpTimer PowerUpTimer
+    {
+        get { return powerUpTimer; }
+        set { powerUpTimer = value; }
+    }
+
 }
 

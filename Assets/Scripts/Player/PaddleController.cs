@@ -12,8 +12,8 @@ public class PaddleController : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        maxPosition = 6.8f;
-        minPosition = -6.8f;
+        maxPosition = 6.7f;
+        minPosition = -6.64f;
     }
 
 

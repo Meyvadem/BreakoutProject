@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7593c307dbc36524d97c880dc11b3fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeDecreaseFactor: 2.5
+  shieldTimerPrefab: {fileID: 4923589295524134713, guid: 5093e34a8ef04de4cbe0f8df6fbe78bd, type: 3}
 --- !u!65 &4153185356875948970
 BoxCollider:
   m_ObjectHideFlags: 0

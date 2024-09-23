@@ -4,7 +4,7 @@ public class BallSizeDecreasePowerUp : PowerUpBase
 {
 
     public float sizeDecreaseFactor = 0.5f;
-
+    public GameObject poisonTimerPrefab;
 
     public override void ApplyPowerUp(PaddlePowerUpController paddlePowerUpController)
     {
@@ -14,14 +14,6 @@ public class BallSizeDecreasePowerUp : PowerUpBase
         {
             Vector3 currentScale = ball.transform.localScale;
             ball.transform.localScale = currentScale * sizeDecreaseFactor;
-
-
-            // Collider boyutunu güncelleme
-            SphereCollider collider = ball.GetComponent<SphereCollider>();
-            if (collider != null)
-            {
-                collider.radius *= sizeDecreaseFactor;
-            }
 
 
             // Rigidbody kütlesini güncelleme 
@@ -38,25 +30,21 @@ public class BallSizeDecreasePowerUp : PowerUpBase
             Debug.LogWarning("Ball reference is not set.");
         }
 
-        ActivatePowerUpBar(paddlePowerUpController, Color.green);
+        PowerUpTimer = paddlePowerUpController.powerUpTimer;
+
+        PowerUpTimer.timerPrefab = poisonTimerPrefab;
+
+        paddlePowerUpController.TimerUI.ActivatePowerUpBar(this);
 
     }
 
-    public override void DeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
+    protected override void OnDeactivatePowerUp(PaddlePowerUpController paddlePowerUpController)
     {
         GameObject ball = paddlePowerUpController.ball;
         if (ball != null)
         {
             Vector3 currentScale = ball.transform.localScale;
             ball.transform.localScale = currentScale / sizeDecreaseFactor;
-
-
-            // Collider'ýn yarýçapýný orijinal haline döndür
-            SphereCollider collider = ball.GetComponent<SphereCollider>();
-            if (collider != null)
-            {
-                collider.radius /= sizeDecreaseFactor;
-            }
 
 
             // Rigidbody'nin kütlesini orijinal haline döndür
@@ -73,8 +61,7 @@ public class BallSizeDecreasePowerUp : PowerUpBase
             Debug.LogWarning("Ball reference is not set.");
         }
 
-        DeactivatePowerUpBar(paddlePowerUpController);
 
-        Destroy(gameObject);
+
     }
 }
